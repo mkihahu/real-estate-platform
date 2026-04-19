@@ -11,6 +11,7 @@ import {
   updatePropertyStatus,
 } from "../controllers/property.controller.js";
 import { authorize, protect } from "../middleware/auth.middleware.js";
+import upload from "../middleware/upload.middleware.js";
 
 const propertyRouter = express.Router();
 
