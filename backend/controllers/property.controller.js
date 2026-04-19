@@ -324,7 +324,7 @@ export const getPropertyDetails = async (req, res) => {
     // Unique view tracking by id
     let visitorId = req.id;
     const authHeader = req.headers.authorization;
-    if (authHeader && authHeader.startsWith("Bearer")) {
+    if (authHeader && authHeader.startsWith("Bearer ")) {
       try {
         const token = authHeader.split(" ")[1];
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
