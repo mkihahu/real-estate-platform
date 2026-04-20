@@ -43,7 +43,7 @@ const sendEmail = async (options) => {
       );
     }
   } catch (error) {
-    console.error("Error occurred while sending email:", error);
+    console.error("Error occurred while sending email:", error.message);
     throw error;
   }
 };
