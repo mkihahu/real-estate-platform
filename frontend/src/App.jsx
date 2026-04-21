@@ -1,11 +1,13 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+import LandingPage from "./pages/shared/LandingPage";
 
 const HomePage = () => {
   return (
     <div>
-      <h1 className="text-primary text-3xl font-bold text-center mt-10">
-        Welcome to RealEstate - Find Your Dream Home
-      </h1>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+      </Routes>
     </div>
   );
 };
