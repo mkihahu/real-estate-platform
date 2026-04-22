@@ -6,16 +6,26 @@ import {
   HiHome,
   HiLightningBolt,
   HiLocationMarker,
+  HiMail,
   HiOfficeBuilding,
+  HiPhone,
   HiSearch,
   HiShieldCheck,
   HiVideoCamera,
 } from "react-icons/hi";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import axios from "axios";
 import API_URL from "../../config.js";
 import banner from "../../assets/bannerimage.png";
+import PropertyCard from "../../components/common/PropertyCard.jsx";
+import logo from "../../assets/logo.png";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -258,6 +268,302 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+
+      <section className={s.categorySection}>
+        <div className={s.container}>
+          <div className={s.categoryHeader}>
+            <div className={s.categoryHeaderText}>
+              <h2 className={s.categoryTitle}>Browse by Category</h2>
+              <p className={s.categoryDesc}>
+                Explore curated collection of properties tailored to your
+                specific lifestyle and needs.
+              </p>
+            </div>
+          </div>
+
+          <div className={s.categoryGrid}>
+            {categories.map((cat, idx) => (
+              <div
+                key={idx}
+                className={s.categoryCard}
+                onClick={() => navigate(`/properties?type=${cat.type}`)}
+              >
+                <div className={s.categoryIconWrapper}>{cat.icon}</div>
+                <h3 className={s.categoryName}>{cat.name}</h3>
+                <p className={s.categoryCount}>
+                  {cat.count.toLocaleString()} Properties
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features section */}
+      <section className={s.featuredSection}>
+        <div className={s.featuresContainer}>
+          <div className={s.featuresList}>
+            {features.map((f, idx) => (
+              <div
+                key={idx}
+                className={s.featureCard}
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
+                <div className={s.featureIconWrapper}>{f.icon}</div>
+                <h3 className={s.featureTitle}>{f.title}</h3>
+                <p className={s.featureDesc}>{f.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className={s.featuresContent}>
+            <h2 className={s.featuresHeading}>
+              Why RealEstate <br />
+              is the <span className={s.textGradient}>Prefered Choice</span>
+            </h2>
+            <p className={s.featuresSubtext}>
+              We've reinvented the property search experience from the ground
+              up. By focusing on transparency, technological precision, and
+              user-centric design, we help you find not just a house, but a
+              home.
+            </p>
+            <ul className={s.featuresListItems}>
+              {[
+                "Direct connection with certified agents",
+                "Real-time market valuation data",
+                "Secure document management system",
+                "24/7 Premium customer support",
+              ].map((item, idx) => (
+                <li key={idx} className={s.listItem}>
+                  <HiLightningBolt className="text-primary" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a href="#process" className={s.learnMoreLink}>
+              Learn more about our process &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section id="process" className={s.processSection}>
+        <div className={s.container}>
+          <div className={s.processHeader}>
+            <span className={s.processBadge}>How It Works</span>
+            <h2 className={s.processTitle}>
+              Our Seamless <span className={s.textGradient}>Process</span>
+            </h2>
+            <p className={s.processSubtitle}>
+              We've simplified the journey of finding your dream home into three
+              clear, stress-free steps.
+            </p>
+          </div>
+
+          <div className={s.processGrid}>
+            {[
+              {
+                step: "01",
+                title: "Smart Search",
+                desc: "Leverage our AI-driven Smart Search algorithms to find the best property matches tailored to your specific preferences.",
+                icon: <HiLightningBolt size={32} />,
+              },
+              {
+                step: "02",
+                title: "Virtual Tours",
+                desc: "Experience your future home from anywhere with our high-definition 3D virtual tours and immersive walkthroughs.",
+                icon: <HiVideoCamera size={32} />,
+              },
+              {
+                step: "03",
+                title: "Verified Trust",
+                desc: "Every listing is strictly audited for ownership and condition, ensuring your peace of mind and a secure transaction.",
+                icon: <HiShieldCheck size={32} />,
+              },
+            ].map((p, idx) => (
+              <div key={idx} className={s.processCard}>
+                <div className={s.stepNumber}>{p.step}</div>
+                <div className={s.processIconWrapper}>{p.icon}</div>
+                <h3 className={s.processCardTitle}>{p.title}</h3>
+                <p className={s.processCardDesc}>{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured collection */}
+      <section className={s.featuredSection}>
+        <div className={s.container}>
+          <div className={s.featuredHeader}>
+            <span className={s.featuredBadge}>Handpicked For You</span>
+            <h2 className={s.featureTitle}>Featured Collections</h2>
+            <p>
+              Discover high-value properties curated by our experts for their
+              exceptional design, location,and investment potential.
+            </p>
+          </div>
+
+          {loading ? (
+            <div className={s.loadingContainer}>
+              <div className={s.loader}></div>
+            </div>
+          ) : error ? (
+            <div className={s.errorContainer}>
+              <p>{error}</p>
+            </div>
+          ) : (
+            <div className={s.processGrid}>
+              {properties
+                .filter((p) => p)
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .slice(0, 6)
+                .map((property) => (
+                  <PropertyCard
+                    key={property._id}
+                    property={property}
+                    isWishlisted={wishlistedIds.includes(String(property._id))}
+                    onToggleWishlist={handleToggleWishlist}
+                  />
+                ))}
+            </div>
+          )}
+
+          <div className={s.discoverButtonContainer}>
+            <button
+              onClick={() => navigate("/properties")}
+              className={s.discoverButton}
+            >
+              Discover More Properties
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className={s.footer}>
+        <div className={s.container}>
+          <div className={s.footerMainGrid}>
+            <div className={s.footerBrand}>
+              <div className={s.brandLogo}>
+                <div className={s.brandIcon}>RE</div>
+                RealEstate
+              </div>
+              <p className={s.brandDesc}>
+                The most trusted platform for buying, selling, and renting
+                premium real estate globally. We make property hunting seamless.
+              </p>
+              <div className={s.socialIcons}>
+                {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn].map(
+                  (Icon, idx) => (
+                    <a href="#" key={idx} className={s.socialIcon}>
+                      <Icon size={16} />
+                    </a>
+                  ),
+                )}
+              </div>
+            </div>
+
+            {/* Column 2: Quick Links */}
+            <div>
+              <h4 className={s.footerHeading}>Company</h4>
+              <ul className={s.footerLinks}>
+                <li>
+                  <a href="/" className={s.footerLink}>
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="/properties" className={s.footerLink}>
+                    Property
+                  </a>
+                </li>
+                <li>
+                  <a href="/wishlist" className={s.footerLink}>
+                    Wishlist
+                  </a>
+                </li>
+                <li>
+                  <a href="/contact" className={s.footerLink}>
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Contact Info */}
+            <div>
+              <h4 className={s.footerHeading}>Support</h4>
+              <ul className={s.footerLinks}>
+                <li className={s.contactInfo}>
+                  <HiMail className="text-primary text-xl" />{" "}
+                  contact@reestate.com
+                </li>
+                <li className={s.contactInfo}>
+                  <HiPhone className="text-primary text-xl" /> +91 1234567890
+                </li>
+                <li className={s.contactInfoStart}>
+                  <HiLocationMarker
+                    className={`text-primary ${s.contactIcon}`}
+                  />
+                  123 Business Hub, Kenya
+                </li>
+              </ul>
+            </div>
+
+            {/* column 4 */}
+            <div>
+              <h4 className={s.footerHeading}>Newsletter</h4>
+              <p className={s.newsletterDesc}>
+                Subscribe to get the latest listings and market insights
+                directly in you inbox.
+              </p>
+              <div className={s.newsletterInputWrapper}>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className={s.newsletterInput}
+                />
+                <button className={s.newsletterButton}>Join Now</button>
+              </div>
+            </div>
+          </div>
+
+          {/* bottom bar */}
+          <div className={s.bottomBar}>
+            <div className={s.bottomBarFlex}>
+              <p>
+                &copy; {new Date().getFullYear()} RealEstate. All rights
+                reserved
+              </p>
+              <div className={s.footerLegalLinks}>
+                <a href="#" className={s.footerLink}>
+                  Privacy Policy
+                </a>
+                <a href="#" className={s.footerLink}>
+                  Terms of Service
+                </a>
+                <a href="#" className={s.footerLink}>
+                  Cookies Settings
+                </a>
+              </div>
+            </div>
+
+            <div className={s.designCredit}>
+              <img src={logo} alt="logo" className={s.designLogo} />
+              <span className="text-muted">Designed By</span>
+              <a
+                href="https://josmart.co.ke"
+                target="_blank"
+                className={s.designLink}
+              >
+                Josmart Technologies
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
