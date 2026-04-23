@@ -128,7 +128,7 @@ const Navbar = () => {
                   <Link to="/profile" className="flex items-center">
                     <img
                       src={
-                        user.profilePic ||
+                        user.profilePicture ||
                         `https://ui-avatars.com/api/?name=${user.name}&background=0d6e59&color=fff`
                       }
                       alt="Profile"
@@ -173,7 +173,7 @@ const Navbar = () => {
             <div className={s.drawerUserInfo}>
               <img
                 src={
-                  user.profilePic ||
+                  user.profilePicture ||
                   `https://ui-avatars.com/api/?name=${user.name}&background=0d6e59&color=fff`
                 }
                 alt="Profile"
