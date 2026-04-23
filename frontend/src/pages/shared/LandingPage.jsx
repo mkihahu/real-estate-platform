@@ -181,7 +181,7 @@ const LandingPage = () => {
         <div className={s.heroContent}>
           <span className={s.badge}>Trusted by 20,000+ home owners</span>
           <h1 className={s.heroTitle}>
-            Find Your <span className={s.textGradient}>Perfext</span> Next
+            Find Your <span className={s.textGradient}>Perfect</span> Next
             Chapter
           </h1>
           <p className={s.heroSubtitle}>
