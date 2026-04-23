@@ -19,9 +19,9 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const verificationToken = Math.floor(
+    const verificationCode = Math.floor(
       100000 + Math.random() * 900000,
-    ).toString(); // Generate a 6-digit token
+    ).toString(); // Generate a 6-digit code
 
     // Create new user
     const newUser = await User.create({
@@ -30,7 +30,8 @@ export const register = async (req, res) => {
       password: hashedPassword,
       role,
       isApproved: role === "seller" ? false : true, // Sellers need approval
-      verificationToken,
+      verificationCode,
+      verificationCodeExpires: new Date(Date.now() + 10 * 60 * 1000), // Expires in 10 minutes
     });
 
     try {
@@ -40,7 +41,7 @@ export const register = async (req, res) => {
         message: `
           <h1>Email Verification</h1>
           <p>Thank you for registering on Josmart Real Estate Platform. Please use the following verification code to verify your email address:</p>
-          <h2>${verificationToken}</h2>
+          <h2>${verificationCode}</h2>
           <p>This code will expire in 10 minutes.</p>
         `,
       });
@@ -136,9 +137,9 @@ export const getProfile = async (req, res) => {
 // verify email
 export const verifyEmail = async (req, res) => {
   try {
-    const { email, token } = req.body;
-    if (!email || !token) {
-      return res.status(400).json({ message: "Email and token are required" });
+    const { email, code } = req.body;
+    if (!email || !code) {
+      return res.status(400).json({ message: "Email and code are required" });
     }
 
     const user = await User.findOne({ email });
@@ -150,12 +151,25 @@ export const verifyEmail = async (req, res) => {
       return res.status(400).json({ message: "Email already verified" });
     }
 
-    if (user.verificationToken !== token) {
-      return res.status(400).json({ message: "Invalid verification token" });
+    // Check if verification code has expired
+    if (
+      user.verificationCodeExpires &&
+      user.verificationCodeExpires < new Date()
+    ) {
+      return res
+        .status(400)
+        .json({
+          message: "Verification code has expired. Please register again.",
+        });
+    }
+
+    if (user.verificationCode !== code) {
+      return res.status(400).json({ message: "Invalid verification code" });
     }
 
     user.isVerified = true;
-    user.verificationToken = undefined; // Clear the token after verification
+    user.verificationCode = undefined;
+    user.verificationCodeExpires = undefined;
     await user.save();
 
     res
@@ -236,12 +250,10 @@ export const resetPassword = async (req, res) => {
     });
 
     if (!user) {
-      return res
-        .status(400)
-        .json({
-          message: "Invalid or expired password reset token.",
-          success: false,
-        });
+      return res.status(400).json({
+        message: "Invalid or expired password reset token.",
+        success: false,
+      });
     }
 
     user.password = await bcrypt.hash(password, 10);

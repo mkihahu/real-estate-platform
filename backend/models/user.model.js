@@ -50,11 +50,19 @@ const userschema = new mongoose.Schema(
       type: String,
     },
 
+    verificationCode: {
+      type: String,
+    },
+
+    verificationCodeExpires: {
+      type: Date,
+    },
+
     resetPasswordToken: {
       type: String,
     },
 
-    resetPasswordExpires: {
+    resetPasswordExpire: {
       type: Date,
     },
   },

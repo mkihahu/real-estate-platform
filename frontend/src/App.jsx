@@ -4,12 +4,14 @@ import LandingPage from "./pages/shared/LandingPage";
 import Properties from "./pages/shared/Properties";
 import PropertyDetails from "./pages/shared/PropertyDetails";
 import Register from "./pages/auth/Register";
+import VerifyEmail from "./pages/auth/VerifyEmail";
 
 const HomePage = () => {
   return (
     <div>
       <Routes>
         <Route path="/register" element={<Register />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
 
         <Route path="/" element={<LandingPage />} />
         <Route path="/properties" element={<Properties />} />

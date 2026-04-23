@@ -21,7 +21,7 @@ const sendEmail = async (options) => {
       htmlContent: options.message,
     };
 
-    const response = fetch("https://api.brevo.com/v3/smtp/email", {
+    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
