@@ -156,14 +156,15 @@ const PropertyDetails = () => {
 
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  if (loading)
+  if (loading) {
     return (
       <div className="loader-full-page">
         <div className="loader"></div>
       </div>
     );
+  }
 
-  if (error || !property)
+  if (error || !property) {
     return (
       <div
         className="container"
@@ -172,6 +173,7 @@ const PropertyDetails = () => {
         {error || "Property not found"}
       </div>
     );
+  }
 
   const formattedPrice = new Intl.NumberFormat("en-KE", {
     style: "currency",

@@ -9,6 +9,8 @@ import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import Profile from "./pages/shared/Profile";
+import AdminLayout from "./components/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 const HomePage = () => {
   return (
@@ -24,6 +26,10 @@ const HomePage = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/properties" element={<Properties />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
+
+        <Route element={<AdminLayout />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        </Route>
       </Routes>
     </div>
   );
