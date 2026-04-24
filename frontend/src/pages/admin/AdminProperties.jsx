@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineExternalLink, HiOutlineTrash } from "react-icons/hi";
+import axios from "axios";
+import API_URL from "../../config";
 
 const AdminProperties = () => {
   const [properties, setProperties] = useState([]);
