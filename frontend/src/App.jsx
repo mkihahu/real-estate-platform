@@ -16,6 +16,8 @@ import SellerRequests from "./pages/admin/SellerRequests";
 import AdminProperties from "./pages/admin/AdminProperties";
 import AdminInquiries from "./pages/admin/AdminInquiries";
 import AdminContacts from "./pages/admin/AdminContacts";
+import SellerLayout from "./components/SellerLayout";
+import SellerDashboard from "./pages/seller/SellerDashboard";
 
 const HomePage = () => {
   return (
@@ -31,6 +33,10 @@ const HomePage = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/properties" element={<Properties />} />
         <Route path="/property/:id" element={<PropertyDetails />} />
+
+        <Route element={<SellerLayout />}>
+          <Route path="/dashboard" element={<SellerDashboard />} />
+        </Route>
 
         <Route element={<AdminLayout />}>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />

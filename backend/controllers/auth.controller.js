@@ -124,7 +124,7 @@ export const login = async (req, res) => {
 // Get current user profile
 export const getProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId).select("-password");
+    const user = await User.findById(req.user._id).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -156,11 +156,9 @@ export const verifyEmail = async (req, res) => {
       user.verificationCodeExpires &&
       user.verificationCodeExpires < new Date()
     ) {
-      return res
-        .status(400)
-        .json({
-          message: "Verification code has expired. Please register again.",
-        });
+      return res.status(400).json({
+        message: "Verification code has expired. Please register again.",
+      });
     }
 
     if (user.verificationCode !== code) {
