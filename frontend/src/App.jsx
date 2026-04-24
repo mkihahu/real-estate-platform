@@ -13,6 +13,7 @@ import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
 import SellerRequests from "./pages/admin/SellerRequests";
+import AdminProperties from "./pages/admin/AdminProperties";
 
 const HomePage = () => {
   return (
@@ -33,6 +34,7 @@ const HomePage = () => {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/seller-requests" element={<SellerRequests />} />
+          <Route path="/admin/properties" element={<AdminProperties />} />
         </Route>
       </Routes>
     </div>
