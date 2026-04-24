@@ -15,6 +15,7 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import SellerRequests from "./pages/admin/SellerRequests";
 import AdminProperties from "./pages/admin/AdminProperties";
 import AdminInquiries from "./pages/admin/AdminInquiries";
+import AdminContacts from "./pages/admin/AdminContacts";
 
 const HomePage = () => {
   return (
@@ -37,6 +38,7 @@ const HomePage = () => {
           <Route path="/admin/seller-requests" element={<SellerRequests />} />
           <Route path="/admin/properties" element={<AdminProperties />} />
           <Route path="/admin/inquiries" element={<AdminInquiries />} />
+          <Route path="/admin/contacts" element={<AdminContacts />} />
         </Route>
       </Routes>
     </div>
