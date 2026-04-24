@@ -12,6 +12,7 @@ import Profile from "./pages/shared/Profile";
 import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
+import SellerRequests from "./pages/admin/SellerRequests";
 
 const HomePage = () => {
   return (
@@ -31,6 +32,7 @@ const HomePage = () => {
         <Route element={<AdminLayout />}>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/seller-requests" element={<SellerRequests />} />
         </Route>
       </Routes>
     </div>
