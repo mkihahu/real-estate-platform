@@ -95,7 +95,7 @@ const SellerDashboard = () => {
     const newStatus = currentStatus === "sold" ? "sale" : "sold";
 
     try {
-      await axios.delete(
+      await axios.patch(
         `${API_URL}/api/property/${id}/status`,
         { status: newStatus },
         {
