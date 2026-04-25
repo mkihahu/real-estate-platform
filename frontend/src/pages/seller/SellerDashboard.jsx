@@ -40,7 +40,7 @@ const SellerDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { statsRes, propsRes, inqRes } = await Promise.all([
+        const [statsRes, propsRes, inqRes] = await Promise.all([
           axios.get(`${API_URL}/api/property/seller/dashboard`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
