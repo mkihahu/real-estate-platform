@@ -15,8 +15,9 @@ const PendingApproval = () => {
   const { logout, user, refreshUser } = useAuth();
   const [refreshing, setRefreshing] = useState(false);
 
-  // Auto refresh
+  // Refresh immediately on mount and then every 10 seconds
   useEffect(() => {
+    refreshUser(); // Call immediately when component mounts
     const interval = setInterval(() => {
       refreshUser();
     }, 10000);
