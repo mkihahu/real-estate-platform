@@ -32,7 +32,7 @@ const AdminProperties = () => {
       }
     };
     fetchProperties();
-  }, []);
+  }, [token]);
 
   // Delete a property
   const handleDelete = async (id) => {
@@ -49,7 +49,7 @@ const AdminProperties = () => {
       });
       setProperties(properties.filter((p) => p._id !== id));
     } catch (err) {
-      alert("Failed to delete property.");
+      alert("Failed to delete property.", err);
     }
   };
 

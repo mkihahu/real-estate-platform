@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
         setUser(JSON.parse(storedUser));
       }
     }
+    setLoading(false);
 
     const interceptor = axios.interceptors.response.use(
       (response) => response,

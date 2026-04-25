@@ -21,8 +21,8 @@ const PropertyCard = ({
 }) => {
   if (!property) return null;
 
-  const { user } = useAuth();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   // For wishlist click
   const handleWishlistClick = (e) => {
