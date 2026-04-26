@@ -10,17 +10,6 @@ chatRouter.use(protect);
 chatRouter.post("/start", async (req, res) => {
   try {
     const { propertyId, sellerId, buyerId: providedBuyerId } = req.body;
-    console.log(
-      "Chat start - User role:",
-      req.user.role,
-      "User ID:",
-      req.user._id.toString(),
-    );
-    console.log("Chat start - Request body:", {
-      propertyId,
-      sellerId,
-      providedBuyerId,
-    });
 
     let buyerId, finalSellerId;
     if (req.user.role === "seller") {
@@ -79,13 +68,6 @@ chatRouter.post("/send", async (req, res) => {
   try {
     const { chatId, text, image } = req.body;
     const userId = req.user._id;
-    console.log(
-      "Send message - User ID:",
-      userId.toString(),
-      "Role:",
-      req.user.role,
-    );
-
     const chat = await Chat.findById(chatId);
     if (!chat) {
       return res.status(404).json({
@@ -93,34 +75,15 @@ chatRouter.post("/send", async (req, res) => {
       });
     }
 
-    console.log(
-      "Send message - Chat found:",
-      chat._id,
-      "Buyer:",
-      chat.buyer.toString(),
-      "Seller:",
-      chat.seller.toString(),
-    );
-
     // Ensure sender is part of this chat
-    console.log(
-      "Auth check - Comparing userId:",
-      userId.toString(),
-      "with buyer:",
-      chat.buyer.toString(),
-      "seller:",
-      chat.seller.toString(),
-    );
     if (
       chat.buyer.toString() !== userId.toString() &&
       chat.seller.toString() !== userId.toString()
     ) {
-      console.log("Auth failed!");
       return res.status(403).json({
         message: "Not authorized to send messages in this chat",
       });
     }
-    console.log("Auth passed!");
 
     const newMessage = {
       sender: userId,
