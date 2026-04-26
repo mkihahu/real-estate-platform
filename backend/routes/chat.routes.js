@@ -10,6 +10,18 @@ chatRouter.use(protect);
 chatRouter.post("/start", async (req, res) => {
   try {
     const { propertyId, sellerId, buyerId: providedBuyerId } = req.body;
+    console.log(
+      "Chat start - User role:",
+      req.user.role,
+      "User ID:",
+      req.user._id.toString(),
+    );
+    console.log("Chat start - Request body:", {
+      propertyId,
+      sellerId,
+      providedBuyerId,
+    });
+
     let buyerId, finalSellerId;
     if (req.user.role === "seller") {
       buyerId = providedBuyerId;
@@ -19,11 +31,20 @@ chatRouter.post("/start", async (req, res) => {
       finalSellerId = sellerId;
     }
 
+    console.log(
+      "Chat creation - Final buyerId:",
+      buyerId,
+      "finalSellerId:",
+      finalSellerId,
+    );
+
     if (!buyerId || !finalSellerId) {
       return res.status(400).json({
         message: "Missing buyer or seller Id",
       });
     }
+
+    console.log("Creating chat - Buyer:", buyerId, "Seller:", finalSellerId);
 
     // Check for an existing chat between buyer and seller
     let chat = await Chat.findOne({
@@ -47,7 +68,7 @@ chatRouter.post("/start", async (req, res) => {
     res.json(chat);
   } catch (err) {
     res.status(500).json({
-      message: "Error creating chat or getting prvious one",
+      message: "Error creating chat or getting previous one",
       error: err.message,
     });
   }
@@ -58,6 +79,12 @@ chatRouter.post("/send", async (req, res) => {
   try {
     const { chatId, text, image } = req.body;
     const userId = req.user._id;
+    console.log(
+      "Send message - User ID:",
+      userId.toString(),
+      "Role:",
+      req.user.role,
+    );
 
     const chat = await Chat.findById(chatId);
     if (!chat) {
@@ -66,12 +93,34 @@ chatRouter.post("/send", async (req, res) => {
       });
     }
 
+    console.log(
+      "Send message - Chat found:",
+      chat._id,
+      "Buyer:",
+      chat.buyer.toString(),
+      "Seller:",
+      chat.seller.toString(),
+    );
+
     // Ensure sender is part of this chat
-    if (chat.buyer.toString() !== userId && chat.seller.toString() !== userId) {
+    console.log(
+      "Auth check - Comparing userId:",
+      userId.toString(),
+      "with buyer:",
+      chat.buyer.toString(),
+      "seller:",
+      chat.seller.toString(),
+    );
+    if (
+      chat.buyer.toString() !== userId.toString() &&
+      chat.seller.toString() !== userId.toString()
+    ) {
+      console.log("Auth failed!");
       return res.status(403).json({
         message: "Not authorized to send messages in this chat",
       });
     }
+    console.log("Auth passed!");
 
     const newMessage = {
       sender: userId,

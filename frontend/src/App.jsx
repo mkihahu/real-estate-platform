@@ -30,6 +30,7 @@ import { useState } from "react";
 import { FaChevronUp } from "react-icons/fa";
 import { useAuth } from "./hooks/useAuth";
 import MyInquiries from "./pages/buyer/MyInquiries";
+import ChatMessages from "./pages/shared/ChatMessages";
 
 // Scroll to top whenever the route is changed
 const ScrollToTopOnRouteChange = () => {
@@ -111,6 +112,7 @@ const App = () => {
         >
           <Route element={<SellerLayoutWrapper />}>
             <Route path="/inquiries" element={<MyInquiries />} />
+            <Route path="/chat-messages" element={<ChatMessages />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
 

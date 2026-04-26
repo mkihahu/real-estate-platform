@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { propertyDetailsStyles as s } from "../../assets/dummyStyles.js";
 import Navbar from "../../components/common/Navbar.jsx";
@@ -123,15 +124,36 @@ const PropertyDetails = () => {
   // Start a chat(buyer)
   const handleChatStart = async () => {
     if (!user) return navigate("login");
+
+    // If user doesn't have ID, they need to log in again
+    if (!user._id) {
+      console.error("User ID is missing from context:", user);
+      // Force logout and redirect to login
+      alert("Your session has expired. Please log in again.");
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+      sessionStorage.removeItem("token");
+      navigate("/login");
+      return;
+    }
+
     if (user.role !== "buyer") {
       return alert("Only buyers can chat with sellers");
     }
     try {
+      // Get seller ID - handle both object and string formats
+      const sellerId =
+        typeof property.seller === "string"
+          ? property.seller
+          : property.seller?._id;
+      console.log("Starting chat - Seller:", sellerId, "Buyer:", user._id);
+
       const res = await axios.post(
         `${API_URL}/api/chat/start`,
         {
           propertyId: id,
-          sellerId: property.seller._id,
+          sellerId,
         },
         { headers: { Authorization: `Bearer ${token}` } },
       );
@@ -149,8 +171,15 @@ const PropertyDetails = () => {
       );
       navigate("/chat-messages", { state: { chat } });
     } catch (err) {
-      console.error("Error starting chat: ", err);
-      alert("Failed to start chat.");
+      console.error("Error starting chat:", err);
+      console.error(
+        "Error response:",
+        err.response?.status,
+        err.response?.data,
+      );
+      alert(
+        "Failed to start chat: " + (err.response?.data?.message || err.message),
+      );
     }
   };
 

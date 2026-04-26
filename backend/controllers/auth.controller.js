@@ -56,6 +56,7 @@ export const register = async (req, res) => {
       message:
         "User registered successfully. Please check your email for verification instructions.",
       user: {
+        _id: newUser._id,
         email: newUser.email,
         name: newUser.name,
         role: newUser.role,
@@ -113,7 +114,12 @@ export const login = async (req, res) => {
 
     res.json({
       token,
-      user: { email: user.email, name: user.name, role: user.role },
+      user: {
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      },
       message: "Login successful",
     });
   } catch (error) {
