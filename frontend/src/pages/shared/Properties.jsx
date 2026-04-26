@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { propertiesStyles as s } from "../../assets/dummyStyles.js";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../hooks/useAuth";
 import Navbar from "../../components/common/Navbar.jsx";
 import {
   HiAdjustments,

@@ -1,8 +1,7 @@
 import React from "react";
 import { adminContactsStyles as s } from "../../assets/dummyStyles";
-import { useAuth } from "../../context/AuthContext";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useAuth } from "../../hooks/useAuth";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import API_URL from "../../config";
 import { HiOutlineClock, HiOutlineMail, HiOutlinePhone } from "react-icons/hi";
@@ -12,25 +11,37 @@ const AdminContacts = () => {
   const [loading, setLoading] = useState(true);
   const { token } = useAuth();
 
-  // Fetch contact messages
-  const fetchContacts = async () => {
-    try {
-      console.log("Fetching contacts...");
-      const res = await axios.get(`${API_URL}/api/contact`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.data.success) {
-        setContacts(res.data.contacts);
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchContacts = async () => {
+      try {
+        console.log("Fetching contacts...");
+        const res = await axios.get(`${API_URL}/api/contact`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (isMounted && res.data.success) {
+          setContacts(res.data.contacts);
+        }
+      } catch (err) {
+        console.error("Failed to load contacts:", err);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
-      setLoading(false);
-    } catch (err) {
-      console.error("Failed to load contacts:", err);
+    };
+
+    if (token) {
+      fetchContacts();
+    } else {
       setLoading(false);
     }
-  };
 
-  useEffect(() => {
-    fetchContacts();
+    return () => {
+      isMounted = false;
+    };
   }, [token]);
 
   if (loading) {

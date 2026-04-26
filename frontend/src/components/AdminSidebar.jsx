@@ -1,6 +1,6 @@
 import React from "react";
 import { adminSidebarStyles as s } from "../assets/dummyStyles";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import Logo from "./common/Logo";
 import {
   HiOutlineChatAlt2,

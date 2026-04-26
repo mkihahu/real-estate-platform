@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { registerStyles as s } from "../../assets/dummyStyles.js";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../hooks/useAuth";
 import Navbar from "../../components/common/Navbar.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { HiEye, HiEyeOff } from "react-icons/hi";

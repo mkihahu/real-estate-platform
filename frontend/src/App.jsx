@@ -28,7 +28,7 @@ import {
 import { useEffect } from "react";
 import { useState } from "react";
 import { FaChevronUp } from "react-icons/fa";
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "./hooks/useAuth";
 import MyInquiries from "./pages/buyer/MyInquiries";
 
 // Scroll to top whenever the route is changed

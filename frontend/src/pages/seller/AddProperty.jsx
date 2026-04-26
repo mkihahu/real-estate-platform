@@ -1,6 +1,6 @@
 import React from "react";
 import { addPropertyStyles as s } from "../../assets/dummyStyles";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";

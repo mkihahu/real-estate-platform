@@ -41,7 +41,7 @@ export const createContact = async (req, res) => {
     });
   } catch (err) {
     console.error("Contact error:", err);
-    re.status(500).json({
+    res.status(500).json({
       success: false,
       message: err.message || "Failed to send message",
     });
@@ -57,7 +57,7 @@ export const getAllContacts = async (req, res) => {
       contacts,
     });
   } catch (err) {
-    re.status(500).json({
+    res.status(500).json({
       success: false,
       message: "Failed to fetch contact messages",
     });

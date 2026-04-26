@@ -1,6 +1,6 @@
 import React from "react";
 import { propertyCardStyles as s } from "../../assets/dummyStyles.js";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import {
   HiArrowsExpand,

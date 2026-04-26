@@ -1,6 +1,6 @@
 import React from "react";
 import { editPropertyStyles as s } from "../../assets/dummyStyles";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";

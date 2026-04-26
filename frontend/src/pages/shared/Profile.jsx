@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { profileStyles as s } from "../../assets/dummyStyles.js";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../hooks/useAuth";
 import Navbar from "../../components/common/Navbar.jsx";
 import API_URL from "../../config.js";
 import axios from "axios";

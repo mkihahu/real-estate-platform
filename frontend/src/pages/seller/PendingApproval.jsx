@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { pendingApprovalStyles as s } from "../../assets/dummyStyles";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import { useState } from "react";
 import { useEffect } from "react";
 import {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { adminDashboardStyles as s } from "../../assets/dummyStyles";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
 import API_URL from "../../config";
 import {

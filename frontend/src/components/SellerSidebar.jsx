@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { sellerSidebarStyles as s } from "../assets/dummyStyles";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import Logo from "./common/Logo";
 import {
   HiOutlineChartBar,

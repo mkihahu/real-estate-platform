@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { propertyDetailsStyles as s } from "../../assets/dummyStyles.js";
 import Navbar from "../../components/common/Navbar.jsx";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../hooks/useAuth";
 import API_URL from "../../config.js";
 import axios from "axios";
 import PropertyCard from "../../components/common/PropertyCard.jsx";

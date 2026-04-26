@@ -20,7 +20,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
 import API_URL from "../../config.js";
 import banner from "../../assets/bannerimage.png";

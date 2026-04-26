@@ -1,6 +1,6 @@
 import React from "react";
 import { adminPropertiesStyles as s } from "../../assets/dummyStyles";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import PropertyCard from "../../components/common/PropertyCard";
 import { useState } from "react";
 import { useEffect } from "react";

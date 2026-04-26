@@ -1,6 +1,6 @@
 import React from "react";
 import { sellerLayoutStyles as s } from "../assets/dummyStyles";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import SellerSidebar from "./SellerSidebar";
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
