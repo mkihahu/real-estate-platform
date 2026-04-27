@@ -49,26 +49,6 @@ const Properties = () => {
     { label: "Unfurnished", value: "unfurnished" },
   ];
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const city = queryParams.get("city") || "";
-    const type = queryParams.get("type") || "";
-    const bhk = queryParams.get("bhk") || "";
-
-    const initialFilters = {
-      ...filters,
-      city,
-      propertyType: type ? [type] : [],
-      bhk,
-    };
-
-    setFilters(initialFilters);
-    fetchProperties(initialFilters);
-    if (user) {
-      fetchWishlist();
-    }
-  }, [location.search, user]);
-
   const fetchWishlist = async () => {
     try {
       const res = await axios.get(`${API_URL}/api/wishlist`, {
@@ -134,6 +114,26 @@ const Properties = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const city = queryParams.get("city") || "";
+    const type = queryParams.get("type") || "";
+    const bhk = queryParams.get("bhk") || "";
+
+    const initialFilters = {
+      ...filters,
+      city,
+      propertyType: type ? [type] : [],
+      bhk,
+    };
+
+    setFilters(initialFilters);
+    fetchProperties(initialFilters);
+    if (user) {
+      fetchWishlist();
+    }
+  }, [location.search, user]);
 
   const fetchTimer = useRef(null);
 

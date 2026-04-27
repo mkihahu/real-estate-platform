@@ -32,6 +32,7 @@ import { useAuth } from "./hooks/useAuth";
 import MyInquiries from "./pages/buyer/MyInquiries";
 import ChatMessages from "./pages/shared/ChatMessages";
 import Contact from "./pages/shared/Contact";
+import Wishlist from "./pages/buyer/Wishlist";
 
 // Scroll to top whenever the route is changed
 const ScrollToTopOnRouteChange = () => {
@@ -115,6 +116,7 @@ const App = () => {
             <Route path="/inquiries" element={<MyInquiries />} />
             <Route path="/chat-messages" element={<ChatMessages />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
 
