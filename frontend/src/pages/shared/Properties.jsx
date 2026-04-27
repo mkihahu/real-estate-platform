@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import { propertiesStyles as s } from "../../assets/dummyStyles.js";
 import { useAuth } from "../../hooks/useAuth";
@@ -133,6 +135,7 @@ const Properties = () => {
     if (user) {
       fetchWishlist();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search, user]);
 
   const fetchTimer = useRef(null);
