@@ -36,6 +36,7 @@ const AdminContacts = () => {
     if (token) {
       fetchContacts();
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
     }
 
@@ -69,7 +70,7 @@ const AdminContacts = () => {
         {contacts.length === 0 ? (
           <div className={s.emptyState}>
             <HiOutlineMail size={48} className={s.emptyIcon} />
-            <p>Inbox is empty. No coantact messages yet.</p>
+            <p>Inbox is empty. No contact messages yet.</p>
           </div>
         ) : (
           <div className={s.contactList}>
@@ -106,7 +107,7 @@ const AdminContacts = () => {
 
                         <div className={s.detailItem}>
                           <HiOutlineClock size={16} />{" "}
-                          {new Date(contact.createdAt).toLocaleString([], {
+                          {new Date(contact.createdAt).toLocaleDateString([], {
                             dateStyle: "medium",
                             timeStyle: "short",
                           })}

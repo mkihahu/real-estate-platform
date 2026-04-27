@@ -9,7 +9,7 @@ export const createContact = async (req, res) => {
     await contact.save();
 
     // Notify Admin via Brevo
-    const adminEmail = process.env.EMAIL_USER;
+    const adminEmail = process.env.BREVO_SENDER_EMAIL;
     const adminMessage = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b;">
             <h2 style="color: #0d9488;">New Contact Request</h2>
